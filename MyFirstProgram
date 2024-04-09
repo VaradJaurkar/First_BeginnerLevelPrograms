@@ -1,0 +1,41 @@
+import random 
+# Creating a list
+WordList = ["watermelon", "mango", "delhi", "mumbai", "nashik", "guava", "grapes"]
+# Choosing a word
+Word = random.choice(WordList)
+#print(Word) --> testing
+# Giving fill in the blanks for the word
+WordFormed = ("_"*len(Word))
+print(WordFormed)
+# Giving lives to the player
+Chances = len(Word) + 2
+# Making a loop for continuous gameplay
+while Chances > 0 and "_" in WordFormed:
+    # Taking user input
+    GuessWord = input("Enter a letter which you think is in the word: ")
+    # Checking guess availability
+    if GuessWord in Word:
+        # Creating list of indexes where the letter is present working for once or more than once
+        Indices = [i for i , letter in enumerate(Word) if letter == GuessWord]
+        # Filling the guessed word in the respective blanks
+        for i in range(len(Indices)):
+            Position = Indices[i]
+            #print(Position) --> testing
+            WordFormed = WordFormed[:Position] + GuessWord + WordFormed[(Position+1):]
+            # printing the filled word
+            print (WordFormed)
+    # Wrong guess
+    elif GuessWord not in Word and (Chances - 1) > 0:
+        print("Wrong Guess, either you entered an invalid text such as a number or symbol or the letter you guesses is not in the word, guess something else!")
+    else:
+        pass
+    # Optional prompt for player convenience 
+    if (Chances-1) > 0 and "_" in WordFormed:
+        print(f"Continue Playing you have not gussed the word yet and you have {Chances - 1} lives left! Be smart.")
+    # Life decrement for each chance
+    Chances -= 1
+# Prompt telling whether player won or not
+if Chances == 0 and "_" in WordFormed:
+    print("Ooh! Sorry your lives are over and you were not able to finish the game. Try again!")
+else:
+    print("Congragulations on sucessful completion of game! Thanks for playing! Have a nice day!")
